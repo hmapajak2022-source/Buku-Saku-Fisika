@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Buku Saku Fisika XI SMA — Seri Kemandirian Belajar</title>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/page-flip/dist/js/page-flip.browser.js"></script>
+<style>
+:root{--ink:#15241B;--muted:#5E7266;--line:#DCE6DD;--panel:#F1F6F1;--surface:#fff;--forest:#16663C;--leaf:#2E9E57;--leaf-soft:#E3F2E7;--amber:#C77A1B;--amber-soft:#FBEFD9;box-sizing:border-box;padding-top:env(safe-area-inset-top,0);padding-bottom:env(safe-area-inset-bottom,0)}
+*{box-sizing:inherit}html,body{margin:0}
+body{font-family:"Plus Jakarta Sans",system-ui,sans-serif;color:var(--ink);background:#0E1712;background-image:radial-gradient(130% 90% at 50% -10%,#1a2f24,#0E1712 62%);min-height:100vh}
+.view{display:none}.view.active{display:block}
+.stage{max-width:1100px;margin:0 auto;padding:10px}
+.imgwrap{position:relative;line-height:0;border-radius:14px;overflow:hidden;box-shadow:0 14px 44px rgba(0,0,0,.45)}
+.imgwrap img{width:100%;height:auto;display:block}
+.hotspot{position:absolute;border:2.5px solid transparent;border-radius:14px;background:transparent;cursor:pointer;transition:.15s;padding:0}
+.hotspot:hover,.hotspot:focus-visible{background:rgba(255,255,255,.16);border-color:var(--hs,#fff);box-shadow:0 0 0 3px rgba(0,0,0,.18),0 0 22px rgba(255,255,255,.25);outline:none}
+.hotspot.book:hover,.hotspot.book:focus-visible{background:rgba(255,255,255,.10);border-style:dashed}
+.hotspot .tip{position:absolute;left:50%;top:-30px;transform:translateX(-50%);white-space:nowrap;background:#0E1712;color:#fff;font-size:11.5px;font-weight:700;padding:3px 9px;border-radius:999px;opacity:0;pointer-events:none;transition:.15s}
+.hotspot:hover .tip,.hotspot:focus-visible .tip{opacity:1}
+.topline{display:flex;align-items:center;gap:10px;color:#cfe3d6;font-size:12.5px;padding:6px 4px 2px}.topline .grow{flex:1}
+.bk{border:1px solid #2b3d31;background:#152019;color:#E7F0E9;border-radius:999px;padding:7px 13px;font:inherit;font-size:13px;font-weight:700;cursor:pointer}
+.reader{max-width:720px;margin:0 auto;padding:12px 14px calc(40px + env(safe-area-inset-bottom,0))}
+.rhead{display:flex;align-items:center;gap:10px;margin:4px 0 10px}
+.rhead .vt{font-size:11px;font-weight:800;color:#fff;border-radius:7px;padding:3px 8px}
+.rhead h1{font-size:18px;margin:0;color:#E7F0E9;font-weight:800;line-height:1.15}.rhead .mode{font-size:11px;color:#9DB3A4;font-weight:600}
+/* pembaca page-flip */
+.fliphost{width:100%;display:flex;align-items:center;justify-content:center;min-height:56vh}
+.book-pg{background:#fff}
+.book-pg img{width:100%;height:100%;object-fit:contain;display:block}
+/* fallback geser */
+.book.as-gallery{display:flex;width:100%;overflow-x:auto;scroll-snap-type:x mandatory;gap:10px;border-radius:14px;-webkit-overflow-scrolling:touch;box-shadow:0 10px 30px rgba(0,0,0,.4)}
+.book.as-gallery .book-pg{flex:0 0 100%;scroll-snap-align:center;border-radius:12px;overflow:hidden}
+.book.as-gallery .book-pg img{height:auto}
+.ph2{padding:44px 24px;text-align:center;color:#9bb0a2;background:#fff;border-radius:12px;width:100%}
+.flipnav{display:flex;align-items:center;justify-content:center;gap:14px;margin:12px 0 2px}
+.flipnav button{width:42px;height:42px;border-radius:50%;border:1px solid #2b3d31;background:#152019;color:#E7F0E9;font-size:20px;cursor:pointer}
+.flipnav button:active{background:#1d2c23}
+.counter{font-size:12px;color:#9DB3A4;font-weight:600;min-width:150px;text-align:center}
+.feat{background:var(--surface);border:1px solid var(--line);border-radius:16px;padding:14px;margin:11px 0}
+.feat .lbl{display:inline-flex;gap:7px;font-size:11px;font-weight:800;color:#fff;border-radius:999px;padding:4px 10px;margin-bottom:8px}
+.feat h3{font-size:15px;margin:2px 0 5px;font-weight:800}.feat p{font-size:13px;color:var(--muted);margin:0 0 9px}
+.btn{font:inherit;font-weight:700;font-size:14px;border:0;border-radius:11px;background:var(--forest);color:#fff;padding:10px 14px;cursor:pointer}
+.btn.alt{background:#c0392b}.btn.ghost{background:transparent;color:var(--forest);border:1.5px solid var(--line)}
+textarea{width:100%;font:inherit;font-size:14px;color:var(--ink);background:var(--panel);border:1.5px solid var(--line);border-radius:11px;padding:10px 12px;resize:vertical;min-height:70px;margin-bottom:8px}
+.key{display:none;margin-top:9px;font-size:13px;background:var(--amber-soft);color:var(--amber);border-radius:11px;padding:10px 12px}.key.show{display:block}
+.slot{font-size:11.5px;color:var(--muted);margin-top:9px;border-top:1px dashed var(--line);padding-top:8px}
+.modal{position:fixed;inset:0;background:var(--panel);color:var(--ink);z-index:60;display:none;overflow-y:auto}.modal.open{display:block}
+.modal .inner{max-width:560px;margin:0 auto;padding:18px 16px 60px}
+.modal .close{position:sticky;top:8px;margin-left:auto;display:block;background:var(--surface);border:1px solid var(--line);width:40px;height:40px;border-radius:50%;font-size:20px;cursor:pointer}
+.modal h2{font-size:20px;margin:2px 0 4px}.modal .sub{font-size:13px;color:var(--muted);margin:0}
+.bar{height:8px;border-radius:99px;background:var(--line);margin:14px 0 4px;overflow:hidden}.bar>i{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--leaf),#7FB84C 55%,var(--amber));transition:.4s}
+.prow{display:flex;justify-content:space-between;font-size:12px;color:var(--muted);font-weight:600}
+.q{background:var(--surface);border:1px solid var(--line);border-radius:16px;padding:14px;margin:12px 0}.q .num{font-size:12px;font-weight:700;color:var(--leaf)}.q .stem{font-size:15px;font-weight:600;margin:6px 0 10px}
+.opt{display:block;width:100%;text-align:left;font:inherit;font-size:14px;background:var(--panel);color:var(--ink);border:1.5px solid var(--line);border-radius:11px;padding:10px 12px;margin:7px 0;cursor:pointer}
+.opt.correct{border-color:var(--leaf);background:var(--leaf-soft);font-weight:700}.opt.wrong{border-color:var(--amber);background:var(--amber-soft)}
+.fb{margin-top:9px;font-size:13px;border-radius:11px;padding:10px 12px;display:none}.fb.show{display:block}.fb.ok{background:var(--leaf-soft);color:var(--forest)}.fb.no{background:var(--amber-soft);color:var(--amber)}
+.chip{display:inline-block;margin-top:7px;font-size:11px;font-weight:700;background:var(--surface);border:1px solid var(--line);color:var(--muted);padding:3px 9px;border-radius:99px}
+@media(prefers-reduced-motion:reduce){*{transition:none!important}}
+</style></head><body>
+
+<section class="view active" id="home"><div class="stage"><div class="imgwrap" id="shelf"><img id="shelfimg" alt="Rak buku"></div></div></section>
+
+<section class="view" id="map"><div class="stage">
+  <div class="topline"><button class="bk" onclick="show('home')">← Rak Buku</button><span class="grow"></span><span id="mapcap"></span></div>
+  <div class="imgwrap" id="mapwrap"><img id="mapimg" alt="Peta materi"></div>
+  <div class="topline" style="justify-content:center;color:#9DB3A4">Klik subbab untuk membuka subbab itu · klik buku di tengah untuk membaca satu volume penuh</div>
+</div></section>
+
+<section class="view" id="reader"><div class="reader">
+  <div class="topline"><button class="bk" id="backmap">← Peta Materi</button></div>
+  <div class="rhead"><span class="vt" id="rvt"></span><div><h1 id="rtitle"></h1><div class="mode" id="rmode"></div></div></div>
+  <div class="fliphost" id="fliphost"></div>
+  <div class="flipnav"><button id="prevBtn" aria-label="Halaman sebelumnya">‹</button><span class="counter" id="counter"></span><button id="nextBtn" aria-label="Halaman berikutnya">›</button></div>
+  <div id="featbox"></div>
+</div></section>
+
+<div class="modal" id="modal"><div class="inner"><button class="close" id="closeQuiz">×</button>
+  <h2>Cek Pemahaman</h2><p class="sub">Coba jawab dulu; umpan balik muncul setelah memilih.</p>
+  <div class="bar"><i id="fill"></i></div><div class="prow"><span id="prog">0 dari 8 terjawab</span><span id="sc">Skor 0</span></div>
+  <div id="quiz"></div></div></div>
+
+<script>
+/* Folder volume di ROOT: vol1/..vol6/ . Gambar rak & peta dicari di root maupun gambar/.
+   Ekstensi .png/.jpg dicoba bergantian. Pembaca: efek membalik (StPageFlip) + fallback geser. */
+function rng(a,b){var r=[];for(var i=a;i<=b;i++)r.push(i);return r;}
+function setImg(im,cands){var i=0;im.src=cands[0];im.onerror=function(){i++;if(i<cands.length){this.src=cands[i];}else{this.onerror=null;}};}
+function pageCands(dir,num,ext){var alt=ext==='png'?'jpg':'png';var out=[];[dir,'gambar/'+dir].forEach(function(b){[ext,alt].forEach(function(e){out.push(b+num+'.'+e);});});return out;}
+function fileCands(name){return ['gambar/'+name+'.jpg',name+'.jpg','gambar/'+name+'.png',name+'.png'];}
+
+var LANDING_HS=[{v:1,t:29,l:6,w:27,h:26,c:'#e0362d'},{v:2,t:29,l:36,w:28,h:26,c:'#8f1d17'},{v:3,t:29,l:67,w:27,h:26,c:'#1f66c0'},{v:4,t:57,l:6,w:27,h:27,c:'#7a2fb0'},{v:5,t:57,l:36,w:28,h:27,c:'#c79a12'},{v:6,t:57,l:67,w:27,h:27,c:'#1f8a3f'}];
+var VOL={
+ 1:{title:"Suhu dan Kalor",c:"#e0362d",dir:"vol1/",ext:"jpg",all:rng(1,20),
+    map:{"1.1":rng(1,10),"1.2":rng(11,12),"1.3":rng(13,14),"1.4":rng(15,16),"1.5":rng(17,18),"1.6":rng(19,20)},
+    hs:[["1.1",19,5,31,20,"1.1 Suhu dan Termometer"],["1.2",39,5,31,20,"1.2 Pemuaian Termal"],["1.3",59,5,32,21,"1.3 Kalor dan Perubahan Suhu"],["1.4",19,61,37,19,"1.4 Asas Black"],["1.5",38,61,37,21,"1.5 Kalor Laten dan Perubahan Wujud"],["1.6",58,61,37,22,"1.6 Perpindahan Kalor"]]},
+ 2:{title:"Gas Ideal dan Termodinamika",c:"#8f1d17",dir:"vol2/",ext:"png",all:rng(1,40),
+    map:{"2.1":rng(1,8),"2.2":rng(9,13),"2.3":rng(14,18),"2.4":rng(19,22),"2.5":rng(23,28),"2.6":rng(29,34),"2.7":rng(35,40)},
+    hs:[["2.1",17,4,31,17,"2.1 Hukum Gas & Persamaan Gas Ideal"],["2.2",37,4,31,19,"2.2 Teori Kinetik Gas"],["2.3",57,4,31,21,"2.3 Energi Dalam & Derajat Kebebasan"],["2.4",17,62,37,17,"2.4 Sistem, Lingkungan & Usaha Gas"],["2.5",35,62,37,16,"2.5 Proses-Proses Termodinamika"],["2.6",52,62,37,16,"2.6 Hukum-Hukum Termodinamika"],["2.7",69,62,37,18,"2.7 Mesin Kalor, Pendingin & Efisiensi"]]},
+ 3:{title:"Gelombang Mekanik",c:"#1f66c0",dir:"vol3/",ext:"png",all:rng(1,29),
+    map:{"3.1":rng(1,8),"3.2":rng(9,13),"3.3":rng(14,19),"3.4":rng(20,24),"3.5":rng(25,29)},
+    hs:[["3.1",19,3,32,21,"3.1 Konsep & Klasifikasi Gelombang"],["3.2",41,3,32,20,"3.2 Besaran-Besaran Gelombang"],["3.3",61,3,32,22,"3.3 Gelombang Berjalan"],["3.4",23,63,36,24,"3.4 Gelombang Stasioner"],["3.5",50,63,36,22,"3.5 Sifat-Sifat Gelombang"]]},
+ 4:{title:"Gelombang Bunyi",c:"#7a2fb0",dir:"vol4/",ext:"png",all:rng(1,34),
+    map:{"4.1":rng(1,5),"4.2":rng(6,10),"4.3":rng(11,16),"4.4":rng(17,22),"4.5":rng(23,28),"4.6":rng(29,34)},
+    hs:[["4.1",19,3,32,20,"4.1 Karakteristik & Cepat Rambat Bunyi"],["4.2",40,3,32,20,"4.2 Sumber Bunyi: Dawai"],["4.3",60,3,32,22,"4.3 Pipa Organa & Resonansi"],["4.4",19,63,36,20,"4.4 Efek Doppler"],["4.5",40,63,36,20,"4.5 Intensitas & Taraf Intensitas"],["4.6",61,63,36,22,"4.6 Layangan Bunyi"]]},
+ 5:{title:"Cahaya dan Alat Optik",c:"#c79a12",dir:"vol5/",ext:"png",all:rng(1,23),
+    map:{"5.1":[1],"5.2":rng(2,5),"5.3":rng(6,9),"5.4":rng(10,13),"5.5":[14],"5.6":rng(15,17),"5.7":rng(18,20),"5.8":rng(21,23)},
+    hs:[["5.1",15,3,31,16,"5.1 Hakikat Cahaya"],["5.2",32,3,31,16,"5.2 Pemantulan, Pembiasan & Dispersi"],["5.3",49,3,31,16,"5.3 Interferensi Cahaya"],["5.4",66,3,31,19,"5.4 Difraksi Cahaya"],["5.5",17,63,36,16,"5.5 Polarisasi Cahaya"],["5.6",34,63,36,16,"5.6 Pemantulan & Cermin"],["5.7",51,63,36,16,"5.7 Pembiasan & Lensa"],["5.8",69,63,36,18,"5.8 Alat-Alat Optik"]]},
+ 6:{title:"Pemanasan Global",c:"#1f8a3f",dir:"vol6/",ext:"jpg",all:rng(1,9),
+    map:{"6.1":rng(2,3),"6.2":rng(4,5),"6.3":rng(6,7),"6.4":rng(8,9)},
+    hs:[["6.1",22,4,31,24,"6.1 Efek Rumah Kaca"],["6.2",50,4,31,26,"6.2 Penyebab Pemanasan Global"],["6.3",22,62,37,24,"6.3 Dampak Pemanasan Global"],["6.4",50,62,37,26,"6.4 Pengendalian Pemanasan Global"]]}
+};
+
+function show(id){document.querySelectorAll('.view').forEach(function(v){v.classList.remove('active');});document.getElementById(id).classList.add('active');window.scrollTo(0,0);}
+setImg(document.getElementById('shelfimg'),fileCands('rak-buku'));
+(function(){var s=document.getElementById('shelf');LANDING_HS.forEach(function(b){var e=document.createElement('button');e.className='hotspot';e.style.cssText='top:'+b.t+'%;left:'+b.l+'%;width:'+b.w+'%;height:'+b.h+'%;--hs:'+b.c;e.innerHTML='<span class="tip">Volume '+b.v+'</span>';e.onclick=function(){openMap(b.v);};s.appendChild(e);});})();
+function openMap(v){var V=VOL[v];setImg(document.getElementById('mapimg'),fileCands('peta-vol'+v));document.getElementById('mapcap').textContent='Volume '+v+' · '+V.title;
+ var w=document.getElementById('mapwrap');w.querySelectorAll('.hotspot').forEach(function(n){n.remove();});
+ V.hs.forEach(function(h){var e=document.createElement('button');e.className='hotspot';e.style.cssText='top:'+h[1]+'%;left:'+h[2]+'%;width:'+h[3]+'%;height:'+h[4]+'%;--hs:'+V.c;e.innerHTML='<span class="tip">'+h[0]+'</span>';e.onclick=function(){openReader(v,h[0],h[5]);};w.appendChild(e);});
+ var bk=document.createElement('button');bk.className='hotspot book';bk.style.cssText='top:24%;left:38%;width:24%;height:58%;--hs:#ffffff';bk.innerHTML='<span class="tip">Baca 1 volume penuh</span>';bk.onclick=function(){openReader(v,'__all__','Volume '+v+' — '+V.title);};w.appendChild(bk);
+ show('map');}
+
+var flip=null,fbCount=0;
+function clearFlip(){if(flip){try{flip.destroy();}catch(e){}flip=null;}}
+function updCounter(cur,n){document.getElementById('counter').textContent='Halaman '+cur+' / '+n;}
+function renderReader(V,list){
+ var host=document.getElementById('fliphost');host.innerHTML='';clearFlip();fbCount=(list&&list.length)||0;
+ if(!V.dir||!fbCount){host.innerHTML='<div class="ph2">Konten belum tersedia</div>';document.getElementById('counter').textContent='';return;}
+ var book=document.createElement('div');book.className='book';host.appendChild(book);
+ list.forEach(function(num){var pg=document.createElement('div');pg.className='book-pg';var im=document.createElement('img');im.alt='Halaman '+num;setImg(im,pageCands(V.dir,num,V.ext));pg.appendChild(im);book.appendChild(pg);});
+ var useFlip=!!(window.St&&window.St.PageFlip);
+ if(useFlip){try{
+   flip=new St.PageFlip(book,{width:430,height:573,size:'stretch',minWidth:240,maxWidth:700,minHeight:320,maxHeight:940,maxShadowOpacity:.5,showCover:false,usePortrait:true,mobileScrollSupport:false,flippingTime:650});
+   flip.loadFromHTML(book.querySelectorAll('.book-pg'));
+   updCounter(1,fbCount);
+   flip.on('flip',function(e){var p=(e.data|0)+1;updCounter(p>fbCount?fbCount:p,fbCount);});
+ }catch(err){useFlip=false;clearFlip();}}
+ if(!useFlip){book.classList.add('as-gallery');updCounter(1,fbCount);
+   book.onscroll=function(){clearTimeout(book._t);book._t=setTimeout(function(){var c=book.getBoundingClientRect(),cx=c.left+c.width/2,best=1,bd=1e9;Array.prototype.forEach.call(book.children,function(ch,i){var rr=ch.getBoundingClientRect(),d=Math.abs(rr.left+rr.width/2-cx);if(d<bd){bd=d;best=i+1;}});updCounter(best,fbCount);},70);};}
+ document.getElementById('prevBtn').onclick=function(){if(flip){flip.flipPrev();}else{book.scrollBy({left:-book.clientWidth,behavior:'smooth'});}};
+ document.getElementById('nextBtn').onclick=function(){if(flip){flip.flipNext();}else{book.scrollBy({left:book.clientWidth,behavior:'smooth'});}};
+}
+function openReader(v,key,title){var V=VOL[v];document.documentElement.style.setProperty('--vc',V.c);
+ var vt=document.getElementById('rvt');vt.textContent='VOL '+v;vt.style.background=V.c;
+ document.getElementById('rtitle').textContent=title;
+ var all=key==='__all__';var list=all?V.all:(V.map[key]||[]);
+ document.getElementById('rmode').textContent=all?('Mode: satu volume penuh — '+V.all.length+' halaman'):('Mode: subbab '+key);
+ var fb=document.getElementById('featbox');
+ fb.innerHTML = all ? '' :
+  '<div class="feat"><span class="lbl" style="background:#c0392b">📱 Scan &amp; Eksplorasi</span><h3>Video pengayaan</h3><p>Tautan YouTube untuk subbab ini (isi URL pilihan Anda).</p><button class="btn alt" id="ytBtn">▶ Buka video (YouTube)</button></div>'
+ +'<div class="feat"><span class="lbl" style="background:#2E9E57">✏️ Ayo Berpikir Kritis</span><h3>Jawab &amp; cek kunci</h3><textarea id="bk" placeholder="Tuliskan analisismu…"></textarea><button class="btn ghost" id="bkKey">Lihat kunci</button><div class="key" id="bkOut">Kunci/pembahasan subbab ini (diisi per subbab).</div><div class="slot">Slot: jawaban dapat dikirim ke Google Sheet Anda.</div></div>'
+ +'<div class="feat"><span class="lbl" style="background:#16663C">✅ Cek Pemahaman</span><h3>Kuis akhir subbab</h3><p>Kuis berumpan balik (contoh: soal Vol 6).</p><button class="btn" id="openQuiz">Mulai Cek Pemahaman</button><div class="slot">Slot: skor &amp; angket dikirim ke Google Sheet untuk analisis.</div></div>';
+ if(!all){var topic=encodeURIComponent(title+' fisika SMA');
+  document.getElementById('ytBtn').onclick=function(){window.open('https://www.youtube.com/results?search_query='+topic,'_blank');};
+  document.getElementById('bkKey').onclick=function(){document.getElementById('bkOut').classList.add('show');};
+  document.getElementById('openQuiz').onclick=function(){document.getElementById('modal').classList.add('open');};}
+ document.getElementById('backmap').onclick=function(){openMap(v);};
+ show('reader');
+ renderReader(V,list);
+}
+
+var QS=[
+ {n:"Soal 1 · 6.1",s:"Radiasi Matahari yang masuk ke Bumi sebagian besar berupa gelombang…",o:["panjang (inframerah)","pendek","radio","mikro"],a:1,ref:"6.1",fb:"Masuk = gelombang <b>pendek</b>; keluar bumi = gelombang panjang."},
+ {n:"Soal 2 · 6.1",s:"Tanpa efek rumah kaca alami, suhu rata-rata Bumi ≈",o:["15 °C","0 °C","−18 °C","−100 °C"],a:2,ref:"6.1",fb:"Tanpa efek rumah kaca ≈ <b>−18 °C</b>."},
+ {n:"Soal 3 · 6.2",s:"Gas rumah kaca utama dari peternakan adalah…",o:["CO₂","CH₄","N₂O","O₂"],a:1,ref:"6.2",fb:"Peternakan → <b>metana (CH₄)</b>."},
+ {n:"Soal 4 · 6.2",s:"Mengapa deforestasi memperparah pemanasan global?",o:["Hutan menghasilkan CO₂","Mengurangi penyerap CO₂ & melepas karbon","Menurunkan suhu","Menambah oksigen"],a:1,ref:"6.2",fb:"Mengurangi penyerap sekaligus melepas karbon."},
+ {n:"Soal 5 · 6.3",s:"Dampak yang terasa di pesisir Indonesia…",o:["Banjir rob","Gempa","Gerhana","Aurora"],a:0,ref:"6.3",fb:"Muka laut naik → <b>banjir rob</b>."},
+ {n:"Soal 6 · 6.3",s:"Cuaca vs iklim…",o:["Sama","Cuaca jangka panjang","Cuaca harian, iklim jangka panjang","Tak berkaitan"],a:2,ref:"6.3",fb:"Cuaca=harian; iklim=jangka panjang."},
+ {n:"Soal 7 · 6.4",s:"Mengapa energi terbarukan efektif?",o:["Lebih murah","Menghilangkan sumber emisi CO₂ fosil","Menambah emisi","Tak berpengaruh"],a:1,ref:"6.4",fb:"Memangkas sumber emisi."},
+ {n:"Soal 8 · 6.4",s:"Mitigasi vs adaptasi…",o:["Terbalik","Mitigasi kurangi penyebab; adaptasi sesuaikan diri","Sama","Hanya menanam pohon"],a:1,ref:"6.4",fb:"Mitigasi menekan penyebab; adaptasi menyesuaikan diri."}];
+(function(){var quiz=document.getElementById('quiz'),answered=0,score=0;QS.forEach(function(q,i){var el=document.createElement('div');el.className='q';el.innerHTML='<span class="num">'+q.n+'</span><p class="stem">'+q.s+'</p>';var opts=document.createElement('div');q.o.forEach(function(t,j){var b=document.createElement('button');b.className='opt';b.type='button';b.textContent=t;b.onclick=function(){if(el.dataset.done)return;el.dataset.done=1;var bs=opts.querySelectorAll('.opt');bs.forEach(function(x){x.disabled=true;});var ok=j===q.a;bs[j].classList.add(ok?'correct':'wrong');if(!ok)bs[q.a].classList.add('correct');var fb=document.getElementById('fb'+i);fb.className='fb show '+(ok?'ok':'no');fb.innerHTML=(ok?'<b>Tepat. </b>':'<b>Belum tepat. </b>')+q.fb+(ok?'':'<br><span class="chip">Tinjau ulang '+q.ref+'</span>');answered++;if(ok)score++;document.getElementById('prog').textContent=answered+' dari 8 terjawab';document.getElementById('sc').textContent='Skor '+score;document.getElementById('fill').style.width=(answered/8*100)+'%';};opts.appendChild(b);});el.appendChild(opts);var fb=document.createElement('div');fb.className='fb';fb.id='fb'+i;el.appendChild(fb);quiz.appendChild(el);});})();
+document.getElementById('closeQuiz').onclick=function(){document.getElementById('modal').classList.remove('open');};
+</script></body></html>
